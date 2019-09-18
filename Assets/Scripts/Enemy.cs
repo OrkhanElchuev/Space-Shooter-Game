@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
     private void ProcessHit(Damage damage)
     {
         healthPoints -= damage.GetDamage();
+        damage.Hit();
         // Destroy object when health <= 0
         if (healthPoints <= 0)
         {

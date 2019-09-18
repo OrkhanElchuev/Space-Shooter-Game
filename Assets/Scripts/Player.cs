@@ -40,6 +40,11 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Damage damage = other.gameObject.GetComponent<Damage>();
+        // Protect from Null Reference Exception
+        if (!damage)
+        {
+            return;
+        }
         ProcessHit(damage);
     }
 
@@ -47,6 +52,7 @@ public class Player : MonoBehaviour
     private void ProcessHit(Damage damage)
     {
         playerHealth -= damage.GetDamage();
+        damage.Hit();
         // Destroy object when health <= 0
         if (playerHealth <= 0)
         {
