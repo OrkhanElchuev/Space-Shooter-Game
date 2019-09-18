@@ -6,8 +6,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Configuration parameters
+    [Header("Player Movement")] // For readability in Unity
     [SerializeField] float moveSpeed = 10.0f;
     [SerializeField] float padding = 0.8f;
+    [SerializeField] int playerHealth = 300;
+
+    [Header("Projectile")] // For readability in Unity
     [SerializeField] float projectileSpeed = 10.0f;
     [SerializeField] float projectileShootingPeriod = 0.2f;
     [SerializeField] GameObject laserObject;
@@ -30,6 +34,24 @@ public class Player : MonoBehaviour
     {
         MovePlayer();
         Shoot();
+    }
+
+    // On collision of laser with Player deal the damage
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Damage damage = other.gameObject.GetComponent<Damage>();
+        ProcessHit(damage);
+    }
+
+    // Decrement player health 
+    private void ProcessHit(Damage damage)
+    {
+        playerHealth -= damage.GetDamage();
+        // Destroy object when health <= 0
+        if (playerHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Method for player shooting
