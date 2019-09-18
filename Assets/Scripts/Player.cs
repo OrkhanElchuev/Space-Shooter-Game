@@ -9,7 +9,10 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 10.0f;
     [SerializeField] float padding = 0.8f;
     [SerializeField] float projectileSpeed = 10.0f;
+    [SerializeField] float projectileShootingPeriod = 0.2f;
     [SerializeField] GameObject laserObject;
+
+    Coroutine shootingCoroutine;
 
     private float xMin;
     private float xMax;
@@ -32,13 +35,31 @@ public class Player : MonoBehaviour
     // Method for player shooting
     private void Shoot()
     {
+        // When button(Left Click mouse) is pressed start shooting
         if (Input.GetButtonDown("Fire1"))
+        {
+            shootingCoroutine = StartCoroutine(ShootContinuously());
+        }
+        // If button is released stop shooting
+        if (Input.GetButtonUp("Fire1"))
+        {
+            StopCoroutine(shootingCoroutine);
+        }
+    }
+
+    // To shoot while the key is pressed
+    IEnumerator ShootContinuously()
+    {
+        while (true)
         {
             // Quaternion corresponds to "no rotatition" for instantiated object
             GameObject laser = Instantiate(laserObject, transform.position,
                 Quaternion.identity) as GameObject;
+            // Setting velocity for laser
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
-        }   
+            // Create a delay between next shot
+            yield return new WaitForSeconds(projectileShootingPeriod);
+        }
     }
 
     // Setting boundaries for moving the object
