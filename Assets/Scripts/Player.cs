@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Configuration parameters
     [SerializeField] float moveSpeed = 10.0f;
     [SerializeField] float padding = 0.8f;
+    [SerializeField] float projectileSpeed = 10.0f;
+    [SerializeField] GameObject laserObject;
 
     private float xMin;
     private float xMax;
@@ -19,6 +22,25 @@ public class Player : MonoBehaviour
         SetMoveLimits();
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        MovePlayer();
+        Shoot();
+    }
+
+    // Method for player shooting
+    private void Shoot()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            // Quaternion corresponds to "no rotatition" for instantiated object
+            GameObject laser = Instantiate(laserObject, transform.position,
+                Quaternion.identity) as GameObject;
+            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+        }   
+    }
+
     // Setting boundaries for moving the object
     private void SetMoveLimits()
     {
@@ -29,19 +51,13 @@ public class Player : MonoBehaviour
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        MovePlayer();
-    }
-
     // Frame Rate independent 2D object moving function
     private void MovePlayer()
     {
-        // Horizontal and Vertical provides functionality for moving object with AD or arrows
+        // Horizontal and Vertical allows moving object with WASD or arrows
         var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
         var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-        // Getting X and Y positions, clamping Horizontal and Vertical movement of object 
+        // Getting X and Y positions, clamping Horizontal and Vertical movement
         // to avoid leaving the boundaries of screen
         var newXPosition = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
         var newYPosition = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
