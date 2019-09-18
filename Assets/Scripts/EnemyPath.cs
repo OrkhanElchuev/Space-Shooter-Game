@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class EnemyPath : MonoBehaviour
 {
-    [SerializeField] WaveConfig waveConfig;
+    private WaveConfig waveConfig;
     private List<Transform> waypoints;
-    [SerializeField] float moveSpeed = 2.5f;
-
+    
     private int wayPointIndex = 0; 
 
     // Start is called before the first frame update
@@ -30,7 +29,7 @@ public class EnemyPath : MonoBehaviour
         if (wayPointIndex <= waypoints.Count - 1)
         {
             var targetPosition = waypoints[wayPointIndex].position;
-            var movementFrame = moveSpeed * Time.deltaTime;
+            var movementFrame = waveConfig.GetMoveSpeed() * Time.deltaTime;
             // Smoothly move towards targeted waypoint's position 
             transform.position = Vector2.MoveTowards
                 (transform.position, targetPosition, movementFrame);
