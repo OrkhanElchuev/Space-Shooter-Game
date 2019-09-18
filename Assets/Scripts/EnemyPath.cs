@@ -6,7 +6,6 @@ public class EnemyPath : MonoBehaviour
 {
     private WaveConfig waveConfig;
     private List<Transform> waypoints;
-    
     private int wayPointIndex = 0; 
 
     // Start is called before the first frame update
@@ -20,6 +19,12 @@ public class EnemyPath : MonoBehaviour
     void Update()
     {
         EnemyMovement();
+    }
+
+    // Setter for Wave Configuration
+    public void SetWaveConfig(WaveConfig waveConfig)
+    {
+        this.waveConfig = waveConfig;
     }
 
     // Handling Movement of Enemy
