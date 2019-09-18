@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyPath : MonoBehaviour
 {
-    [SerializeField] List<Transform> waypoints;
+    [SerializeField] WaveConfig waveConfig;
+    private List<Transform> waypoints;
     [SerializeField] float moveSpeed = 2.5f;
 
     private int wayPointIndex = 0; 
@@ -12,6 +13,7 @@ public class EnemyPath : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        waypoints = waveConfig.GetWaypoints();
         transform.position = waypoints[wayPointIndex].position;
     }
 
