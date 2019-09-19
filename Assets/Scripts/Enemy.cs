@@ -9,11 +9,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] int scoreVal = 100;
 
     [Header("Shooting")]
-    [SerializeField] float shotCounter;
     [SerializeField] float minPeriodBetweenShots = 0.2f;
     [SerializeField] float maxPeriodBetweenShots = 3.0f;
     [SerializeField] GameObject projectile;
     [SerializeField] float projectileSpeed = 10.0f;
+    private float shotCounter;
 
     [Header("Particle Effect")]
     [SerializeField] GameObject deathVFX;
