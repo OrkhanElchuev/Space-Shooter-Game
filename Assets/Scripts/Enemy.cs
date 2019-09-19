@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [Header("Enemy Statistics")]
     [SerializeField] float healthPoints = 100.0f;
+    [SerializeField] int scoreVal = 100;
 
     [Header("Shooting")]
     [SerializeField] float shotCounter;
@@ -81,6 +82,7 @@ public class Enemy : MonoBehaviour
     // Destroy the enemy object and execute explosion effect
     private void Kill()
     {
+        FindObjectOfType<GameSession>().AddToScore(scoreVal);
         Destroy(gameObject);
         // When enemy destroyed create explosion
         GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);

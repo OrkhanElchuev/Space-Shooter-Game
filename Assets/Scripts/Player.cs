@@ -74,6 +74,12 @@ public class Player : MonoBehaviour
         Destroy(explosion, durationOfExplosion);
     }
 
+    // Get player health (will be used for displaying)
+    public int GetHealth()
+    {
+        return playerHealth;
+    }
+
     // Method for player shooting
     private void Shoot()
     {

@@ -31,9 +31,9 @@ public class GameSession : MonoBehaviour
     }
 
     // Add to score value
-    public void AddToScore(int score)
+    public void AddToScore(int scoreVal)
     {
-        this.score += score;
+        score += scoreVal;
     }
 
     // Destroy GameSession object
