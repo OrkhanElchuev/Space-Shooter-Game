@@ -67,6 +67,7 @@ public class Player : MonoBehaviour
     // Destroy the Player object and execute explosion effect
     private void Kill()
     {
+        // Load Game Over Scene
         FindObjectOfType<Level>().LoadGameOver();
         Destroy(gameObject);
         GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);
