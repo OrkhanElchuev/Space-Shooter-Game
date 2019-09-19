@@ -16,6 +16,10 @@ public class Player : MonoBehaviour
     [SerializeField] float projectileShootingPeriod = 0.2f;
     [SerializeField] GameObject laserObject;
 
+    [Header("Particle Effect")]
+    [SerializeField] GameObject deathVFX;
+    [SerializeField] float durationOfExplosion = 1.0f;
+
     Coroutine shootingCoroutine;
 
     private float xMin;
@@ -56,8 +60,17 @@ public class Player : MonoBehaviour
         // Destroy object when health <= 0
         if (playerHealth <= 0)
         {
-            Destroy(gameObject);
+            Kill();
         }
+    }
+
+    // Destroy the Player object and execute explosion effect
+    private void Kill()
+    {
+        FindObjectOfType<Level>().LoadGameOver();
+        Destroy(gameObject);
+        GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);
+        Destroy(explosion, durationOfExplosion);
     }
 
     // Method for player shooting
