@@ -101,6 +101,9 @@ MonoBehaviour:
   projectileShootingPeriod: 0.1
   laserObject: {fileID: 4095688598988114691, guid: 5cd5c713122f4324b80e53269bf9720d,
     type: 3}
+  deathVFX: {fileID: 4419645187000941122, guid: 7e3199ee8df389d4f92882ab6315595c,
+    type: 3}
+  durationOfExplosion: 1
 --- !u!60 &1272716910204720500
 PolygonCollider2D:
   m_ObjectHideFlags: 0
